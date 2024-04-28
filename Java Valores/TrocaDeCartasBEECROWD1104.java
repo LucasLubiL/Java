@@ -37,8 +37,6 @@ public class TrocaDeCartasBEECROWD1104 {
                 beatriz[x]++;
             }
 
-
-
             for(int i=0;i<100001;i++){
                 if(alice[i]>0 && beatriz[i]==0){
                     trocaA++;
