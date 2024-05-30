@@ -5,7 +5,7 @@ public class XporYBEECROWD1116
 {
 	public static void main(String[] args) {
 	    
-		Locale.setDefault(Locale.US);
+	    Locale.setDefault(Locale.US);
 	    Scanner sc = new Scanner(System.in);
 	    
 	    int n,x,y;
