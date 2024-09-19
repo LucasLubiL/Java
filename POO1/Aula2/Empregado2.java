@@ -20,8 +20,8 @@ public class Empregado2 {
     
     public String verificarNomeFuncao(){
     
-       String aux = "Funcioanario: " + nome + "\nSalário: R$" + salario + "\n";
-       return aux;
+       String aux2 = "Funcioanario: " + nome + "\nSalário: R$" + salario + "\n";
+       return aux2;
        
     
     }

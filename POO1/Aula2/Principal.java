@@ -24,10 +24,12 @@ public class Principal {
         }
         
         Empregado2 jose = new Empregado2();
-        maria.nome = "João Badista";
-        maria.endereco = "Rua Otávio, 44, Centro";
-        maria.funcao = "Gerente de TI";
-        maria.salario = 10000.00;
+        jose.nome = "João Badista";
+        jose.endereco = "Rua Otávio, 44, Centro";
+        jose.funcao = "Gerente de TI";
+        jose.salario
+                
+                = 10000.00;
         
         String aux2 = jose.verificarNomeFuncao();
         System.out.println(aux2);
