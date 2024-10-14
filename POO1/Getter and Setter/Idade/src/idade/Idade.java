@@ -12,13 +12,19 @@ public class Idade {
     
     public Idade(){};
     
-    public String verificarIdade(int idade){
+    public String verificarIdade(){
     
-        if(idade<18){
-            String fim = "Vc tem menos que 18 anos";
-            return fim;
+        if(this.idade<18){
+           return "Vc e de menor";
+        }else{
+           return "Vc e de maior";  
         }
-        
+    }
+
+    public Idade(String nome, int idade, char sexo) {
+        this.nome = nome;
+        this.idade = idade;
+        this.sexo = sexo;
     }
 
     public String getNome() {
@@ -44,7 +50,5 @@ public class Idade {
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }
-    
-    
-    
+ 
 }
