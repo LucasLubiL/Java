@@ -2,18 +2,18 @@ package consulta;
 
 /**
  *
- * @author User
+ * @author Lucas
  */
 public class Consulta {
     
     private String nomeDoPaciente;
     private String dataDeNascimento;
     private String profissao;
-    boolean convenio;
+    private boolean convenio;
     
     public Consulta(){}
 
-    public Consulta(String nomeDoPaciente, String dataDeNascimento) {
+    public Consulta(String nomeDoPaciente, String dataDeNascimento, String profissao) {
         if(nomeDoPaciente.equals("")){
            this.nomeDoPaciente = "Sem preenchimento";
         }else{
@@ -25,6 +25,8 @@ public class Consulta {
         }else{
            this.dataDeNascimento = dataDeNascimento;
         }
+        
+        this.profissao = profissao;
         
     }
     
