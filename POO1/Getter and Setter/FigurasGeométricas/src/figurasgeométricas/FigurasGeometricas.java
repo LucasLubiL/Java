@@ -2,7 +2,7 @@ package figurasgeométricas;
 
 /**
  *
- * @author User
+ * @author Lucas
  */
 public class FigurasGeometricas {
     
