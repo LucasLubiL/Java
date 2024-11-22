@@ -64,13 +64,13 @@ public class Principal {
         
         System.out.println("\n///////////////////////////////////////////////////////////\n");
         
-        System.out.println("Aves: " + ave.get(0) + ", " + ave.get(1) + " Foram eliminadas");
+        System.out.println("Aves: " + ave.get(0) + ", " + ave.get(1) + " foram eliminadas");
         ave.remove(0);
-        ave.remove(1);
+        ave.remove(0);
         
         System.out.println("\n///////////////////////////////////////////////////////////\n");
         
-        System.out.println("\nAves após a exclusao:");
+        System.out.println("Aves após a exclusao:");
         for(String aves : zoologico.getAves()){
         
             System.out.println(aves);
