@@ -1,0 +1,52 @@
+******************************* ORIENTAÇÕES INICIAIS *******************************
+
+1)	A prova deverá ser realizada individualmente; 
+2)	A IDE utilizada deverá ser o Netbeans; 
+3)	A avaliação consiste em terminar o código disponibilizado nesse projeto.
+        No final da prova o projeto deverá ser compactado em uma pasta com o nome do aluno. 
+        O aluno deverá enviar esse arquivo compactado no Google Classroom até a hora estipulada. 
+        Trabalhos entregues depois do horário não serão aceitos e o aluno terá a nota zerada; 
+4)	Não será permitida a consulta na internet do computador ou o uso do celular; 
+5)	Poderão consultar os códigos dados em aula; 
+6)	Não será permitida a consulta de códigos que não foram confeccionados pelo aluno; 
+7)	O aluno deverá confeccionar o exercício conforme as aulas ministradas em sala; 
+8)	Para qualquer indicio de plagio, cola ou código gerado automaticamente por IA a punição será a anulação da prova;
+9)      A prova terminas as 21:00 e vale 20,00 pt
+
+**************************************************************************************
+
+************************************* AVALIAÇÃO **************************************
+
+- O código disponibilizado e começado aqui no projeto refere-se a implementação de duas claculadoras ( normal e científica );
+
+- A classe interface OperacoesAritmeticas deverá ter 4 métodos abstratos:
+    public void mostrarSoma ();
+    public void mostrarSubtracao ();
+    public void mostrarDivisao ();
+    public void mostrarMultiplicacao ();
+
+- A classe abstrata OperacoesComplexas deverá ter 2 métodos abstratos:
+    public abstract void mostrarEcalcularRaizQuadrada ();
+    public abstract void mostrarEcalcularPotenciaQuadrado ();
+
+- As classes concretas CalculadoraSimples2Numeros e CalculadoraSimples2Numeros implementam a classe interface OperacoesAritmeticas
+- Consequentemente implementa seus métodos abstratos;
+- A implementação dos métodos abstratos consiste em fazer a operação aritmética descrita no nome do método e mostrar o resultado;
+- Encapsule as variáveis das duas classes;
+- Crie métodos getters e setters;
+- Verifique se o valor enviado pelo usuário é maior que 0 (zero), se não for, adicione 1 à variável;
+- A verificação acima deve ser feita no setter de cada variável;
+
+- A classe concreta CalculadoraCientifica vai herdar a classe abstratas OperacoesComplexas e implementar a interface OperacoesAritmeticas
+- Consequentemente implementa os métodos abstratos de ambas classes;
+- A implementação dos métodos abstratos da classe interface OperacoesAritmeticas, 
+    consiste em fazer a operação aritmética descrita no nome do método e mostrar o resultado;
+- A implementação dos métodos abstratos da classe abstrata OperacoesComplexas, 
+    consiste em realizar a operação descrita no nome tanto da variável num1 como da variável num2,
+    posteriormente mostram ambos resultados;
+- Encapsule as variáveis das duas classes;
+- Crie métodos getters e setters;
+- Verifique se o valor enviado pelo usuário é maior que 0 (zero), se não for, adicione 1 à variável;
+- A verificação acima deve ser feita no setter de cada variável;
+
+- A classe Principal é a classe de teste e deverá receber os valores para isso via prompt de comando;
