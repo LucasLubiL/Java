@@ -10,7 +10,6 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>com.poo2.prj_petshop.Prj_PetShop</exec.mainClass>
     </properties>
-    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
