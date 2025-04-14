@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -150,6 +151,82 @@ public class PessoaDAO {
         
         return tutor;
         
+    }
+    
+    public List<Pessoa> getPessoas(String nome){
+    
+        List<Pessoa> lstP = new ArrayList<>();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE nome LIKE ?");
+            ppStmt.setString(1,nome+"%");
+            rs = ppStmt.executeQuery();
+            while(rs.next()){
+                
+                lstP.add(getPessoa(rs));
+                
+            }
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstP;
+        
+    }
+    
+    public Pessoa getPessoa(ResultSet rs) throws SQLException{
+    
+        Pessoa p = new Pessoa();
+        
+        p.setId(rs.getInt("idpessoa"));
+        p.setNome(rs.getString("nome"));
+        p.setCpf(rs.getString("cpf"));
+        p.setData_nasc(md.date2String(rs.getString("data_nascimento")));
+     
+        return p;
+        
+    }
+
+    public void excluir(Pessoa pessoa) {
+        
+        try{
+        
+            PreparedStatement stmt1 = conn.prepareStatement("UPDATE Pet SET idpessoa = null WHERE idpessoa = ?");
+            stmt1.setInt(1, pessoa.getId());
+            stmt1.executeUpdate();
+            
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Pessoa WHERE idpessoa = ?");
+            
+            stmt2.setInt(1, pessoa.getId());
+            stmt2.executeUpdate();
+                  
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+    }
+
+    public void editar(Pessoa pessoa) {
+        
+        
+        try{
+            
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Pessoa SET nome = ?, cpf = ?, data_nascimento = ? WHERE idpessoa = ?");
+            
+            stmt.setString(1, pessoa.getNome());
+            stmt.setString(2, pessoa.getCpf());
+            stmt.setDate(3, md.string2Date(pessoa.getData_nasc()));
+            stmt.setInt(4, pessoa.getId());
+            
+            stmt.executeUpdate();
+        
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+           
     }
     
 }

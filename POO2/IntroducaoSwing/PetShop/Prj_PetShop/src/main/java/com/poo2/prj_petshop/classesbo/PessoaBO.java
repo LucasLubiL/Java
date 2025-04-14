@@ -3,6 +3,7 @@ package com.poo2.prj_petshop.classesbo;
 import com.poo2.prj_petshop.classesDAO.PessoaDAO;
 import com.poo2.prj_petshop.objetos.Pessoa;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -39,6 +40,23 @@ public class PessoaBO {
     public Pessoa buscarDono(Pessoa nome) {
         
         return pDAO.buscarDono(nome);
+        
+    }
+    
+    public List<Pessoa> getPessoas(String nome){
+    
+        return pDAO.getPessoas(nome);
+    }
+
+    public void exc(Pessoa pessoa) {
+        
+       pDAO.excluir(pessoa);
+      
+    }
+
+    public void edit(Pessoa pessoa) {
+        
+        pDAO.editar(pessoa);
         
     }
     

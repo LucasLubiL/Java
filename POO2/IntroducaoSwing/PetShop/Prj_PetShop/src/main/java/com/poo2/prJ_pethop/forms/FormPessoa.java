@@ -2,6 +2,8 @@ package com.poo2.prJ_pethop.forms;
 
 import com.poo2.prj_petshop.classesbo.PessoaBO;
 import com.poo2.prj_petshop.objetos.Pessoa;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,12 +13,95 @@ import javax.swing.JOptionPane;
 public class FormPessoa extends javax.swing.JFrame {
 
     private final PessoaBO pBO;
+    private List<Pessoa> lstPessoas;
+    
+    private void preencherCombo(){
+    
+        String nome = txtNomeCons.getText();
+        if(!nome.isEmpty()){
+        
+            lstPessoas = pBO.getPessoas(nome);
+            cmbPessoas.removeAllItems();
+            lstPessoas.forEach(itemPessoa ->{
+               cmbPessoas.addItem(itemPessoa.getNome() + " | " + itemPessoa.getId());
+            });
+            
+        }else{
+        
+            cmbPessoas.removeAllItems();
+             
+        }
+    
+    }
+    
+    private void preencherCampos(Pessoa pessoa){
+    
+        txtId.setText(String.valueOf(pessoa.getId()));
+        txtNome.setText(pessoa.getNome());
+        txtCpf.setText(pessoa.getCpf());
+        txtDataNascimento.setText(pessoa.getData_nasc());
+        btnSalvar.setEnabled(false);
+        
+    }
+    
+    private void preencherCampos(){
+    
+        if(!lstPessoas.isEmpty()){
+        
+            int index = cmbPessoas.getSelectedIndex();
+            Pessoa pessoa = lstPessoas.get(index);
+            preencherCampos(pessoa);
+            
+        }
+        
+    }
+    
+    private void novo(){
+    
+        txtNomeCons.setText("");
+        lstPessoas = new ArrayList<>();
+        txtId.setText("");
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtDataNascimento.setText("");
+        btnSalvar.setEnabled(true);
+        
+    }
     
     public FormPessoa() {
         initComponents();
         pBO = new PessoaBO();
     }
-
+    
+    private void excluir(){
+    
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(Integer.parseInt(txtId.getText()));
+        
+        pBO.exc(pessoa);
+        
+        JOptionPane.showMessageDialog(null,"Dado excluidos com sucesso!!!");
+        
+        novo();
+    
+    }
+    
+    private void editar(){
+    
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(Integer.parseInt(txtId.getText()));
+        pessoa.setNome(txtNome.getText());
+        pessoa.setCpf(txtCpf.getText());
+        pessoa.setData_nasc(txtDataNascimento.getText());
+        
+        pBO.edit(pessoa);
+        
+        JOptionPane.showMessageDialog(null,"Dado editado com sucesso!!!");
+        
+        novo();
+    
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,6 +111,7 @@ public class FormPessoa extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNomeCons = new javax.swing.JTextField();
         cmbPessoas = new javax.swing.JComboBox<>();
+        btnConsultar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -40,6 +126,7 @@ public class FormPessoa extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -51,13 +138,16 @@ public class FormPessoa extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nome:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Pessoas:");
 
+        txtNomeCons.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNomeConsCaretUpdate(evt);
+            }
+        });
         txtNomeCons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeConsActionPerformed(evt);
@@ -72,6 +162,15 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
 
+        btnConsultar.setBackground(new java.awt.Color(204, 204, 204));
+        btnConsultar.setForeground(new java.awt.Color(0, 0, 0));
+        btnConsultar.setText("CONSULTAR");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -79,13 +178,18 @@ public class FormPessoa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeCons, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeCons, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(342, 342, 342))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,22 +202,21 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Nome:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("CPF:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Data Nascimento:");
 
         txtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +226,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("ID");
 
         txtId.setEditable(false);
@@ -193,14 +295,38 @@ public class FormPessoa extends javax.swing.JFrame {
         btnEditar.setBackground(new java.awt.Color(255, 204, 51));
         btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
         btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
         btnExcluir.setText("EXCLUIR");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setBackground(new java.awt.Color(204, 204, 204));
         btnSair.setForeground(new java.awt.Color(0, 0, 0));
         btnSair.setText("SAIR");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        btnNovo.setBackground(new java.awt.Color(0, 255, 204));
+        btnNovo.setForeground(new java.awt.Color(0, 0, 0));
+        btnNovo.setText("NOVO");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -215,7 +341,9 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(204, 204, 204))
+                .addGap(18, 18, 18)
+                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(167, 167, 167))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +353,8 @@ public class FormPessoa extends javax.swing.JFrame {
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -278,16 +407,12 @@ public class FormPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeConsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeConsActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtNomeConsActionPerformed
 
     private void txtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataNascimentoActionPerformed
-
-    private void cmbPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPessoasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPessoasActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
@@ -314,9 +439,36 @@ public class FormPessoa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Erro ao salvar os dados!!!");
         
         }
-        
-        
+          
     }//GEN-LAST:event_btnSalvarActionPerformed
+ 
+    private void txtNomeConsCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeConsCaretUpdate
+        preencherCombo();
+    }//GEN-LAST:event_txtNomeConsCaretUpdate
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        novo();
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        preencherCampos();
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+       excluir();                
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void cmbPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPessoasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPessoasActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -351,8 +503,10 @@ public class FormPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cmbPessoas;
