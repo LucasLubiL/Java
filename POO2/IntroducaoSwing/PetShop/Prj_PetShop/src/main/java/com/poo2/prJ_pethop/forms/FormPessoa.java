@@ -4,7 +4,9 @@ import com.poo2.prj_petshop.classesbo.PessoaBO;
 import com.poo2.prj_petshop.objetos.Pessoa;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -14,6 +16,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private final PessoaBO pBO;
     private List<Pessoa> lstPessoas;
+    private MaskFormatter FormatoDataNasc;
     
     private void preencherCombo(){
     
@@ -118,7 +121,16 @@ public class FormPessoa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
-        txtDataNascimento = new javax.swing.JTextField();
+        try{
+
+            FormatoDataNasc = new MaskFormatter ("##/##/####");
+
+        }catch(Exception e){
+
+            JOptionPane.showMessageDialog(null,"Nao foi possivel fazer a datra de nascimento");
+
+        }
+        txtDataNascimento = new JFormattedTextField(FormatoDataNasc);
         jLabel7 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -163,7 +175,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnConsultar.setBackground(new java.awt.Color(204, 204, 204));
-        btnConsultar.setForeground(new java.awt.Color(0, 0, 0));
         btnConsultar.setText("CONSULTAR");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +295,6 @@ public class FormPessoa extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnSalvar.setBackground(new java.awt.Color(51, 204, 0));
-        btnSalvar.setForeground(new java.awt.Color(0, 0, 0));
         btnSalvar.setText("SALVAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +303,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnEditar.setBackground(new java.awt.Color(255, 204, 51));
-        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("EDITAR");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,7 +311,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
-        btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,7 +319,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnSair.setBackground(new java.awt.Color(204, 204, 204));
-        btnSair.setForeground(new java.awt.Color(0, 0, 0));
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +327,6 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnNovo.setBackground(new java.awt.Color(0, 255, 204));
-        btnNovo.setForeground(new java.awt.Color(0, 0, 0));
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,7 +473,7 @@ public class FormPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
+        
     }//GEN-LAST:event_btnSairActionPerformed
 
     public static void main(String args[]) {

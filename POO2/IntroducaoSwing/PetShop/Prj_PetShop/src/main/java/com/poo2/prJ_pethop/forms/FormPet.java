@@ -239,7 +239,6 @@ public class FormPet extends javax.swing.JFrame {
         });
 
         btnConsultarPet.setBackground(new java.awt.Color(204, 204, 204));
-        btnConsultarPet.setForeground(new java.awt.Color(0, 0, 0));
         btnConsultarPet.setText("CONSULTAR");
         btnConsultarPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,11 +411,10 @@ public class FormPet extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbDonoPet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         btnSalvarPet.setBackground(new java.awt.Color(51, 204, 0));
-        btnSalvarPet.setForeground(new java.awt.Color(0, 0, 0));
         btnSalvarPet.setText("SALVAR");
         btnSalvarPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,7 +423,6 @@ public class FormPet extends javax.swing.JFrame {
         });
 
         btnEditarPet.setBackground(new java.awt.Color(255, 204, 51));
-        btnEditarPet.setForeground(new java.awt.Color(0, 0, 0));
         btnEditarPet.setText("EDITAR");
         btnEditarPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,7 +431,6 @@ public class FormPet extends javax.swing.JFrame {
         });
 
         btnExcluirPet.setBackground(new java.awt.Color(255, 0, 0));
-        btnExcluirPet.setForeground(new java.awt.Color(0, 0, 0));
         btnExcluirPet.setText("EXCLUIR");
         btnExcluirPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -443,7 +439,6 @@ public class FormPet extends javax.swing.JFrame {
         });
 
         btnSairPet.setBackground(new java.awt.Color(204, 204, 204));
-        btnSairPet.setForeground(new java.awt.Color(0, 0, 0));
         btnSairPet.setText("SAIR");
         btnSairPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,7 +447,6 @@ public class FormPet extends javax.swing.JFrame {
         });
 
         btnSairPet1.setBackground(new java.awt.Color(0, 255, 204));
-        btnSairPet1.setForeground(new java.awt.Color(0, 0, 0));
         btnSairPet1.setText("NOVO");
         btnSairPet1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,7 +481,7 @@ public class FormPet extends javax.swing.JFrame {
                     .addComponent(btnExcluirPet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSairPet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSairPet1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -627,7 +621,7 @@ public class FormPet extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarPetActionPerformed
 
     private void btnSairPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairPetActionPerformed
-        System.exit(0);     
+             
     }//GEN-LAST:event_btnSairPetActionPerformed
 
     /**
