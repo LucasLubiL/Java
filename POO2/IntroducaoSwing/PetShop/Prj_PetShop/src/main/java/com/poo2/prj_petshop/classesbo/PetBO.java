@@ -43,4 +43,28 @@ public class PetBO {
         
     }
     
+    public List<Pet> getPets(){
+    
+        return petDAO.getPets();
+    
+    }
+    
+    public List<Pet> getPetsNomeData(String nome, String dataInicio, String dataFim){
+    
+        return petDAO.getPetsNomeData(nome, dataInicio, dataFim);
+    
+    }
+    
+    public List<Pet> getPetsData(String dataInicio, String dataFim){
+    
+        return petDAO.getPetsData(dataInicio, dataFim);
+    
+    }
+
+    public Pet getPetId(int idpet) {
+        
+        return petDAO.getPetId(idpet);
+        
+    }
+    
 }

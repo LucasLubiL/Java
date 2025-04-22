@@ -18,6 +18,14 @@ public class FormPessoa extends javax.swing.JFrame {
     private List<Pessoa> lstPessoas;
     private MaskFormatter FormatoDataNasc;
     
+    private void preencherCombo(int idpessoa){
+    
+        Pessoa p = pBO.getPessoaId(idpessoa);
+        cmbPessoas.addItem(p.getNome() + " | " + p.getId());
+        preencherCampos(p);
+    
+    }
+    
     private void preencherCombo(){
     
         String nome = txtNomeCons.getText();
@@ -74,6 +82,12 @@ public class FormPessoa extends javax.swing.JFrame {
     public FormPessoa() {
         initComponents();
         pBO = new PessoaBO();
+    }
+    
+    public FormPessoa(int idpessoa){
+        initComponents();
+        pBO = new PessoaBO();
+        preencherCombo(idpessoa);
     }
     
     private void excluir(){
@@ -175,6 +189,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnConsultar.setBackground(new java.awt.Color(204, 204, 204));
+        btnConsultar.setForeground(new java.awt.Color(0, 0, 0));
         btnConsultar.setText("CONSULTAR");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +310,7 @@ public class FormPessoa extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnSalvar.setBackground(new java.awt.Color(51, 204, 0));
+        btnSalvar.setForeground(new java.awt.Color(0, 0, 0));
         btnSalvar.setText("SALVAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,6 +319,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnEditar.setBackground(new java.awt.Color(255, 204, 51));
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("EDITAR");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,6 +328,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
+        btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,6 +337,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnSair.setBackground(new java.awt.Color(204, 204, 204));
+        btnSair.setForeground(new java.awt.Color(0, 0, 0));
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,6 +346,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         btnNovo.setBackground(new java.awt.Color(0, 255, 204));
+        btnNovo.setForeground(new java.awt.Color(0, 0, 0));
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,16 +360,16 @@ public class FormPessoa extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(167, 167, 167))
+                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +493,7 @@ public class FormPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     public static void main(String args[]) {

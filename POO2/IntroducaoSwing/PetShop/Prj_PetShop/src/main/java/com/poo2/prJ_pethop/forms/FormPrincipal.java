@@ -65,9 +65,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Relatórios");
 
         mniRelatClientes.setText("Relatório de Clientes");
+        mniRelatClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRelatClientesActionPerformed(evt);
+            }
+        });
         jMenu2.add(mniRelatClientes);
 
         mniRelatPets.setText("Relatório de Pets");
+        mniRelatPets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRelatPetsActionPerformed(evt);
+            }
+        });
         jMenu2.add(mniRelatPets);
 
         jMenuBar1.add(jMenu2);
@@ -112,6 +122,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void mniSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_mniSairActionPerformed
+
+    private void mniRelatClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatClientesActionPerformed
+        new FormRelatPessoa().setVisible(true);
+    }//GEN-LAST:event_mniRelatClientesActionPerformed
+
+    private void mniRelatPetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatPetsActionPerformed
+        new FormRelatPet().setVisible(true);
+    }//GEN-LAST:event_mniRelatPetsActionPerformed
 
     /**
      * @param args the command line arguments

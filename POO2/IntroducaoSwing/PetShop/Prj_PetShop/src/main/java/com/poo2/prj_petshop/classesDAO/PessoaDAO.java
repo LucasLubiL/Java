@@ -160,7 +160,7 @@ public class PessoaDAO {
         
         try{
             
-            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE nome LIKE ?");
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE nome ILIKE ?");
             ppStmt.setString(1,nome+"%");
             rs = ppStmt.executeQuery();
             while(rs.next()){
@@ -174,19 +174,6 @@ public class PessoaDAO {
         }
         
         return lstP;
-        
-    }
-    
-    public Pessoa getPessoa(ResultSet rs) throws SQLException{
-    
-        Pessoa p = new Pessoa();
-        
-        p.setId(rs.getInt("idpessoa"));
-        p.setNome(rs.getString("nome"));
-        p.setCpf(rs.getString("cpf"));
-        p.setData_nasc(md.date2String(rs.getString("data_nascimento")));
-     
-        return p;
         
     }
 
@@ -228,5 +215,124 @@ public class PessoaDAO {
         }
            
     }
+
+    public List<Pessoa> getPessoasNomeData(String nome, String dataInicio, String dataFim) {
     
+        List<Pessoa> lstP = new ArrayList();
+        ResultSet rs;
+        
+        try{
+        
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE nome ILIKE ? AND data_nascimento BETWEEN ? AND ?");
+            
+            ppStmt.setString(1, nome + "%");
+            ppStmt.setDate(2, md.string2Date(dataInicio));
+            ppStmt.setDate(3, md.string2Date(dataFim));
+            
+            rs = ppStmt.executeQuery();
+            
+            while(rs.next()){
+            
+                lstP.add(getPessoa(rs));
+            
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    
+        return lstP;
+        
+    }
+
+    public List<Pessoa> getPessoasData(String dataInicio, String dataFim) {
+    
+         List<Pessoa> lstP = new ArrayList();
+        ResultSet rs;
+        
+        try{
+        
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE data_nascimento BETWEEN ? AND ?");
+
+            ppStmt.setDate(1, md.string2Date(dataInicio));
+            ppStmt.setDate(2, md.string2Date(dataFim));
+            
+            rs = ppStmt.executeQuery();
+            
+            while(rs.next()){
+            
+                lstP.add(getPessoa(rs));
+            
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    
+        return lstP;
+    
+    }
+
+    public List<Pessoa> getPessoas() {
+        
+        List<Pessoa> lstP = new ArrayList<>();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa");
+            
+            rs = ppStmt.executeQuery();
+            while(rs.next()){
+                
+                lstP.add(getPessoa(rs));
+                
+            }
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstP;
+        
+    }
+    
+    public Pessoa getPessoa(ResultSet rs) throws SQLException{
+    
+        Pessoa p = new Pessoa();
+        
+        p.setId(rs.getInt("idpessoa"));
+        p.setNome(rs.getString("nome"));
+        p.setCpf(rs.getString("cpf"));
+        p.setData_nasc(md.date2String(rs.getString("data_nascimento")));
+     
+        return p;
+        
+    }
+    
+    public Pessoa getPessoaId(int id){
+    
+        Pessoa lstP = new Pessoa();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE idpessoa = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
+            ppStmt.setInt(1, id);
+            
+            rs = ppStmt.executeQuery();
+           
+            rs.first();
+            
+            lstP = getPessoa(rs);
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstP;
+    
+    }
+
 }

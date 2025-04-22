@@ -356,6 +356,10 @@
             <Component class="javax.swing.JTextField" name="txtNome">
             </Component>
             <Component class="javax.swing.JTextField" name="txtDataNasc">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(FormatoDataNasc)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xd;&#xa;  &#xd;&#xa;   FormatoDataNasc = new MaskFormatter (&quot;##/##/####&quot;);&#xd;&#xa;&#xd;&#xa;}catch(Exception e){&#xd;&#xa;   &#xd;&#xa;   JOptionPane.showMessageDialog(null,&quot;Nao foi possivel fazer a datra de nascimento&quot;);&#xd;&#xa;&#xd;&#xa;}"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtRaca">
             </Component>

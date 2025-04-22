@@ -1,6 +1,7 @@
 package com.poo2.prj_petshop.classesDAO;
 
 import com.poo2.prj_petshop.objetos.Pessoa;
+import com.poo2.prj_petshop.classesDAO.PessoaDAO;
 import com.poo2.prj_petshop.objetos.Pet;
 import com.poo2.prj_petshop.utilitarios.Conexao;
 import com.poo2.prj_petshop.utilitarios.ManipulaData;
@@ -20,11 +21,13 @@ public class PetDAO {
     
     Connection conn;
     ManipulaData md;
+    PessoaDAO pDAO;
     
     public PetDAO(){
     
         conn = new Conexao().conectar();
         md = new ManipulaData();
+        pDAO = new PessoaDAO();
     
     }
     
@@ -90,22 +93,6 @@ public class PetDAO {
         return lstPet;
         
     }
-    
-    public Pet getPet(ResultSet rs) throws SQLException{
-    
-        Pet pet = new Pet();
-        
-        pet.setId_pet(rs.getInt("idpet"));
-        pet.setNome(rs.getString("nome"));
-        pet.setEspecie(rs.getString("especie"));
-        pet.setRaca(rs.getString("raca"));
-        pet.setPorte(rs.getString("porte"));
-        pet.setCor(rs.getString("cor"));
-        pet.setData_nasc(md.date2String(rs.getString("data_nascimento")));
-        
-        return pet;
-    
-    }
 
     public void excluir(Pet pet) {
         
@@ -140,6 +127,128 @@ public class PetDAO {
         }catch(SQLException ex){
             ex.printStackTrace();
         }
+        
+    }
+    
+    public Pet getPet(ResultSet rs) throws SQLException{
+    
+        Pet pet = new Pet();
+        
+        pet.setId_pet(rs.getInt("idpet"));
+        pet.setNome(rs.getString("nome"));
+        pet.setEspecie(rs.getString("especie"));
+        pet.setRaca(rs.getString("raca"));
+        pet.setPorte(rs.getString("porte"));
+        pet.setCor(rs.getString("cor"));
+        pet.setData_nasc(md.date2String(rs.getString("data_nascimento")));
+        pet.setP(pDAO.getPessoaId(rs.getInt("idpessoa")));
+        
+        return pet;
+    
+    }
+    
+    public List<Pet> getPets(){
+    
+         List<Pet> lstPet = new ArrayList<>();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet");
+         
+            rs = ppStmt.executeQuery();
+            while(rs.next()){
+                
+                lstPet.add(getPet(rs));
+                
+            }
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstPet;
+    
+    }
+    
+    public List<Pet> getPetsNomeData(String nome, String dataInicio, String dataFim){
+    
+        List<Pet> lstPet = new ArrayList<>();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE nome ILIKE ? AND data_nascimento BETWEEN ? AND ?");
+         
+            ppStmt.setString(1, nome + "%");
+            ppStmt.setDate(2, md.string2Date(dataInicio));
+            ppStmt.setDate(3, md.string2Date(dataFim));
+            
+            rs = ppStmt.executeQuery();
+            
+            while(rs.next()){
+                
+                lstPet.add(getPet(rs));
+                
+            }
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstPet;
+    
+    }
+    
+    public List<Pet> getPetsData(String dataInicio, String dataFim){
+    
+        List<Pet> lstPet = new ArrayList<>();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE data_nascimento BETWEEN ? AND ?");
+
+            ppStmt.setDate(1, md.string2Date(dataInicio));
+            ppStmt.setDate(2, md.string2Date(dataFim));
+            
+            rs = ppStmt.executeQuery();
+            
+            while(rs.next()){
+                
+                lstPet.add(getPet(rs));
+                
+            }
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstPet;
+    
+    }
+
+    public Pet getPetId(int idpet) {
+        
+        Pet lstPet = new Pet();
+        ResultSet rs;
+        
+        try{
+            
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE idpet = ?");
+            ppStmt.setInt(1, idpet);
+            
+            rs = ppStmt.executeQuery();
+           
+            rs.first();
+            
+            lstPet = getPet(rs);
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return lstPet;
         
     }
     

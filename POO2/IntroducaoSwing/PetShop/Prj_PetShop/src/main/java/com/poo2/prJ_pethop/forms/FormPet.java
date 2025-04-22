@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -19,12 +21,21 @@ public class FormPet extends javax.swing.JFrame {
     private final PetBO petBO;
     private final PessoaBO pessoaBO;
     private List<Pet> lstPet;
+    private MaskFormatter FormatoDataNasc;
     
     public FormPet() {
         initComponents();
         petBO = new PetBO();
         pessoaBO = new PessoaBO();
         CarregarTutores();
+    }
+    
+     public FormPet(int idpet) {
+        initComponents();
+        petBO = new PetBO();
+        pessoaBO = new PessoaBO();
+        CarregarTutores();
+        preencherCombo(idpet);
     }
     
     public void CarregarTutores(){
@@ -62,6 +73,14 @@ public class FormPet extends javax.swing.JFrame {
             txtDonoPet.setText("");
         }
         
+    }
+    
+    private void preencherCombo(int idpet){
+    
+        Pet pet = petBO.getPetId(idpet);
+        cmbPet.addItem(pet.getNome() + " | " + pet.getId_pet());
+        preencherCampos(pet);
+    
     }
     
     private void preencherCombo(){
@@ -177,7 +196,16 @@ public class FormPet extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtDataNasc = new javax.swing.JTextField();
+        try{
+
+            FormatoDataNasc = new MaskFormatter ("##/##/####");
+
+        }catch(Exception e){
+
+            JOptionPane.showMessageDialog(null,"Nao foi possivel fazer a datra de nascimento");
+
+        }
+        txtDataNasc = new JFormattedTextField(FormatoDataNasc);
         txtRaca = new javax.swing.JTextField();
         txtEspecie = new javax.swing.JTextField();
         txtCor = new javax.swing.JTextField();
@@ -621,7 +649,7 @@ public class FormPet extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarPetActionPerformed
 
     private void btnSairPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairPetActionPerformed
-             
+        dispose();
     }//GEN-LAST:event_btnSairPetActionPerformed
 
     /**
