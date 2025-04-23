@@ -21,6 +21,7 @@ public class FormPet extends javax.swing.JFrame {
     private final PetBO petBO;
     private final PessoaBO pessoaBO;
     private List<Pet> lstPet;
+    private List<Pessoa> lstPessoas;
     private MaskFormatter FormatoDataNasc;
     
     public FormPet() {
@@ -48,7 +49,7 @@ public class FormPet extends javax.swing.JFrame {
         
         cmbDonoPet.addItem("Selecione");
         for (Pessoa p : pessoa) {
-            cmbDonoPet.addItem(p.getNome());
+            cmbDonoPet.addItem(p.getNome() + " | " + p.getId());
         }
         cmbDonoPet.setSelectedIndex(0);
              
@@ -111,6 +112,10 @@ public class FormPet extends javax.swing.JFrame {
         txtEspecie.setText(pet.getEspecie());
         txtCor.setText(pet.getCor());
         txtDataNasc.setText(pet.getData_nasc());
+        cmbDonoPet.removeAllItems();
+        lstPessoas = new ArrayList();
+        lstPessoas.add(pet.getP());
+        cmbDonoPet.addItem(pet.getP().getNome() + " | " + pet.getP().getId());
         btnSalvarPet.setEnabled(false);
         
     }
@@ -138,6 +143,7 @@ public class FormPet extends javax.swing.JFrame {
         txtEspecie.setText("");
         txtDataNasc.setText("");
         txtCor.setText("");
+        CarregarTutores();
         btnSalvarPet.setEnabled(true);
         
     }
@@ -157,6 +163,18 @@ public class FormPet extends javax.swing.JFrame {
     
     private void editar(){
     
+        Pessoa p = new Pessoa();
+        Pessoa pe = new Pessoa();
+        
+        String nomee = (String) cmbDonoPet.getSelectedItem();
+        String nome;
+            
+        nome = nomee.split("\\|")[0].trim();
+
+        p.setNome(nome);
+            
+        pe = pessoaBO.buscarDono(p);
+        
         Pet pet = new Pet();
         pet.setId_pet(Integer.parseInt(txtIdPet.getText()));
         pet.setNome(txtNome.getText());
@@ -165,6 +183,7 @@ public class FormPet extends javax.swing.JFrame {
         pet.setCor(txtCor.getText());
         pet.setPorte(txtPorte.getText());
         pet.setData_nasc(txtDataNasc.getText());
+        pet.setP(pe);
         
         petBO.edit(pet);
         
@@ -253,7 +272,7 @@ public class FormPet extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Pets:");
 
-        cmbPet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
         txtNomePet.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -487,16 +506,16 @@ public class FormPet extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(btnSalvarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(139, 139, 139)
+                .addComponent(btnSalvarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnExcluirPet, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(btnSairPet, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluirPet, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSairPet, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSairPet1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSairPet1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -529,7 +548,7 @@ public class FormPet extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -619,7 +638,7 @@ public class FormPet extends javax.swing.JFrame {
         cmbDonoPet.removeAllItems();
         
         for (Pessoa pe : pessoa) {
-            cmbDonoPet.addItem(pe.getNome());
+            cmbDonoPet.addItem(pe.getNome() + " | " + pe.getId());
         }
         
     }//GEN-LAST:event_txtDonoPetCaretUpdate

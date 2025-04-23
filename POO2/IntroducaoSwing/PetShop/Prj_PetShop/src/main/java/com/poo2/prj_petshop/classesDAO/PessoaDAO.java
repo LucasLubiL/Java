@@ -68,14 +68,14 @@ public class PessoaDAO {
         ArrayList<Pessoa> pessoa = new ArrayList();
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT nome FROM Pessoa");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Pessoa");
             
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Pessoa tutor = new Pessoa();
-                tutor.setNome(rs.getString("nome"));
-                pessoa.add(tutor);
+
+                pessoa.add(getPessoa(rs));
+                
             }
             
         } catch (SQLException ex) {
@@ -98,11 +98,11 @@ public class PessoaDAO {
             
             if(p.getNome().equals("")){
             
-                stmt = conn.prepareStatement("SELECT nome FROM Pessoa");
+                stmt = conn.prepareStatement("SELECT * FROM Pessoa");
                 
             }else{
                 
-                stmt = conn.prepareStatement("SELECT nome FROM Pessoa WHERE nome like ?");
+                stmt = conn.prepareStatement("SELECT * FROM Pessoa WHERE nome like ?");
                 stmt.setString(1,p.getNome() + "%");
                  
             }
@@ -110,9 +110,8 @@ public class PessoaDAO {
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Pessoa pe = new Pessoa();
-                pe.setNome(rs.getString("nome"));
-                pessoa.add(pe);
+                
+                pessoa.add(getPessoa(rs));
                 
             }
             

@@ -181,7 +181,7 @@ public class FormPessoa extends javax.swing.JFrame {
         });
 
         cmbPessoas.setEditable(true);
-        cmbPessoas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPessoas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
         cmbPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPessoasActionPerformed(evt);

@@ -77,7 +77,7 @@ public class PetDAO {
         
         try{
             
-            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE nome LIKE ?");
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE nome ILIKE ?");
             ppStmt.setString(1,nome+"%");
             rs = ppStmt.executeQuery();
             while(rs.next()){
@@ -112,7 +112,7 @@ public class PetDAO {
         
         try{
             
-            PreparedStatement stmt = conn.prepareStatement("UPDATE Pet SET nome = ?, raca = ?, porte = ?, cor = ?, especie = ?, data_nascimento = ? WHERE idpet = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Pet SET nome = ?, raca = ?, porte = ?, cor = ?, especie = ?, data_nascimento = ?, idpessoa = ? WHERE idpet = ?");
             
             stmt.setString(1, pet.getNome());
             stmt.setString(2, pet.getRaca());
@@ -120,7 +120,8 @@ public class PetDAO {
             stmt.setString(4, pet.getCor());
             stmt.setString(5, pet.getEspecie());
             stmt.setDate(6, md.string2Date(pet.getData_nasc()));
-            stmt.setInt(7, pet.getId_pet());
+            stmt.setInt(7, pet.getP().getId());
+            stmt.setInt(8, pet.getId_pet());
             
             stmt.executeUpdate();
         
@@ -149,7 +150,7 @@ public class PetDAO {
     
     public List<Pet> getPets(){
     
-         List<Pet> lstPet = new ArrayList<>();
+        List<Pet> lstPet = new ArrayList<>();
         ResultSet rs;
         
         try{
@@ -235,7 +236,7 @@ public class PetDAO {
         
         try{
             
-            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE idpet = ?");
+            PreparedStatement ppStmt = conn.prepareStatement("SELECT * FROM Pet WHERE idpet = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ppStmt.setInt(1, idpet);
             
             rs = ppStmt.executeQuery();
